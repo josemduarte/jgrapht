@@ -35,10 +35,14 @@
  */
 package org.jgrapht.alg.cycle;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
+import java.util.List;
+
+import org.jgrapht.UndirectedGraph;
 import org.jgrapht.graph.ClassBasedEdgeFactory;
 import org.jgrapht.graph.DefaultEdge;
+import org.jgrapht.graph.Pseudograph;
 import org.jgrapht.graph.SimpleGraph;
 import org.junit.Test;
 
@@ -121,4 +125,99 @@ public class UndirectedCycleBaseTest
     {
         assertTrue(finder.findCycleBase().size() == size);
     }
+    
+    @Test
+    public void testPseudographIssue1() {
+    	UndirectedGraph<String,Integer> g = new Pseudograph<String, Integer>(Integer.class);
+		
+		PatonCycleBase<String, Integer> finder = new PatonCycleBase<String, Integer>(g);
+		
+		// cycle between 2 nodes
+		
+		g.addVertex("A0");
+		g.addVertex("A1");
+		g.addEdge("A0","A1",1);
+		g.addEdge("A1","A0",2);
+		
+		List<List<String>> cycles = finder.findCycleBase();
+
+		// this is fine
+		assertEquals(1,cycles.size());
+		
+		// this should be 2 but gives 3 (A0 node is repeated twice)
+		assertEquals(2, cycles.get(0).size());
+		
+
+    }
+    
+    @Test
+    public void testPseudographIssue2() {
+    	
+    	UndirectedGraph<String,Integer> g = new Pseudograph<String, Integer>(Integer.class);
+
+		PatonCycleBase<String, Integer> finder = new PatonCycleBase<String, Integer>(g);
+
+    	// graph with cycle and 2 edges between 2 nodes: infinite loop
+
+    	g.addVertex("A0");
+    	g.addVertex("A1");
+    	g.addVertex("A2");
+    	g.addVertex("A3");
+
+    	g.addEdge("A0","A1",1);
+    	g.addEdge("A0","A1",11);
+    	g.addEdge("A1","A2",2);
+
+    	g.addEdge("A2","A3",3);
+    	//g.addEdge("A2","A3",31);
+    	g.addEdge("A3","A0",4);
+
+		List<List<String>> cycles = finder.findCycleBase();
+
+		// this is fine
+		assertEquals(2,cycles.size());
+		
+		// this is not fine as in testPseudographIssue1 (commented out to let it go to next test)
+		//assertEquals(2, cycles.get(0).size());
+		
+		// this is fine
+		assertEquals(4, cycles.get(1).size());
+    	
+    }
+    
+    @Test
+    public void testPseudographIssue3() {
+    	
+    	UndirectedGraph<String,Integer> g = new Pseudograph<String, Integer>(Integer.class);
+
+		PatonCycleBase<String, Integer> finder = new PatonCycleBase<String, Integer>(g);
+
+    	// graph with cycle and 2 edges between 2 nodes: infinite loop
+
+    	g.addVertex("A0");
+    	g.addVertex("A1");
+    	g.addVertex("A2");
+    	g.addVertex("A3");
+
+    	g.addEdge("A0","A1",1);
+    	//g.addEdge("A0","A1",11);
+    	g.addEdge("A1","A2",2);
+
+    	g.addEdge("A2","A3",3);
+    	g.addEdge("A2","A3",31);
+    	g.addEdge("A3","A0",4);
+
+
+    	// this goes into an infinite loop
+    	List<List<String>> cycles = finder.findCycleBase();
+    	
+    	assertEquals(2,cycles.size());
+
+    	// this is not fine as in testPseudographIssue1 (commented out to let it go to next test)
+    	//assertEquals(2, cycles.get(0).size());
+
+    	assertEquals(4, cycles.get(1).size());
+
+    }
+    
 }
