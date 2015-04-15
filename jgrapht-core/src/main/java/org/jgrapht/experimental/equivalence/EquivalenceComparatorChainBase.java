@@ -39,23 +39,19 @@ import java.util.*;
 
 
 /**
- * This class implements comparator chaining.
+ * This class implements comparator chaining.<br>
+ * Usage examples:<br>
+ * <i>graph-theory, node equivalence:</i> You can create a comparator for the
+ * inDegree of a node, another for the total weight of outDegree edges, and a
+ * third which checks the business content of the node. You know that the first
+ * topological comparators has dozens of different groups, but the buisness
+ * comparator has only two, and they are hard to check . The best performance
+ * will be gained by:
  *
- * <p>Usage examples:
- * <li> <i>graph-theory, node equivalence:</i> You can create a comparator for
- * the inDegree of a node, another for the total weight of outDegree edges, and
- * a third which checks the business content of the node. You know that the
- * first topological comparators has dozens of different groups, but the
- * buisness comparator has only two, and they are hard to check . The best
- * performance will be gained by:
- *
- * <blockquote><code>
- * <p>EquivalenceComparatorChainBase eqChain = new
+ * <blockquote><code>EquivalenceComparatorChainBase eqChain = new
  * EquivalenceComparatorChainBase(fastNodesDegreeComparator);
- *
- * <p>eqChain.addComparatorAfter(ABitSlowerEdgeWeightComparator);
- *
- * <p>eqChain.addComparatorAfter(slowestBuisnessContentsComparator);</code>
+ * eqChain.addComparatorAfter(ABitSlowerEdgeWeightComparator);
+ * eqChain.addComparatorAfter(slowestBuisnessContentsComparator);</code>
  * </blockquote>
  *
  * @param <E> the type of the elements in the set
@@ -112,8 +108,7 @@ public class EquivalenceComparatorChainBase<E, C>
      * @see EquivalenceComparator#equivalenceCompare(Object, Object, Object,
      * Object)
      */
-    @Override
-    public boolean equivalenceCompare(
+    @Override public boolean equivalenceCompare(
         E arg1,
         E arg2,
         C context1,
@@ -140,8 +135,7 @@ public class EquivalenceComparatorChainBase<E, C>
      *
      * @see EquivalenceComparator#equivalenceHashcode(Object, Object)
      */
-    @Override
-    public int equivalenceHashcode(E arg1, C context)
+    @Override public int equivalenceHashcode(E arg1, C context)
     {
         StringBuffer hashStringBuffer = new StringBuffer();
         for (

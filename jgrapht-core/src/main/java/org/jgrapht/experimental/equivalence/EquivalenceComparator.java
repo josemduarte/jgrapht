@@ -52,20 +52,20 @@ package org.jgrapht.experimental.equivalence;
  * decide that to check isomorphism in vertex groups of gender only. Meaning if
  * this is the graph:
  *
- * <p>(male,"Don")---->(female,"Dana")--->(male,"John")
+ * <p>(male,"Don")----&gt;(female,"Dana")---&gt;(male,"John")
  *
  * <p>if there is no equivalence set at all , this graph can be described as:
- * (1)---->(2)---->(3)
+ * (1)----&gt;(2)----&gt;(3)
  *
  * <p>if the equivalence set is determined only by the gender property :
- * (male)---->(female)---->(male)
+ * (male)----&gt;(female)----&gt;(male)
  *
  * <p>and if it is determined by both properties: (the original figure) The
  * isomorphism inspection may return different result according to this choice.
- * If the other graph is: (male,"Don")--->(male,"Sunny")---->(male,"Jo") In no
- * eq.set they are Isomorphic, but for the two other cases they are not. Other
- * examples: Nodes with the same degree, Edges with the same weight, Graphs with
- * the same number of nodes and edges.
+ * If the other graph is: (male,"Don")---&gt;(male,"Sunny")----&gt;(male,"Jo")
+ * In no eq.set they are Isomorphic, but for the two other cases they are not.
+ * Other examples: Nodes with the same degree, Edges with the same weight,
+ * Graphs with the same number of nodes and edges.
  *
  * @param <E> the type of the elements in the set
  * @param <C> the type of the context the element is compared against, e.g. a

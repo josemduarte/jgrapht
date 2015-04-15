@@ -38,38 +38,41 @@ package org.jgrapht.graph.builder;
 
 import org.jgrapht.*;
 
+
 /**
  * Base class for {@link DirectedWeightedGraphBuilder} for extending.
  */
-public abstract class DirectedWeightedGraphBuilderBase
-        <V, E, G extends DirectedGraph<V, E> & WeightedGraph<V, E>,
-                B extends DirectedWeightedGraphBuilderBase<V, E, G, B>>
-        extends DirectedGraphBuilderBase<V, E, G, B>
+public abstract class DirectedWeightedGraphBuilderBase<V,
+    E,
+    G extends DirectedGraph<V, E> & WeightedGraph<V, E>,
+    B extends DirectedWeightedGraphBuilderBase<V, E, G, B>>
+    extends DirectedGraphBuilderBase<V, E, G, B>
 {
-
+    
 
     /**
-     * Creates a builder based on {@code baseGraph}.
-     * {@code baseGraph} must be mutable.
-     * 
+     * Creates a builder based on {@code baseGraph}. {@code baseGraph} must be
+     * mutable.
+     *
      * @param baseGraph the graph object to base building on
-     * @see DirectedWeightedGraphBuilder#DirectedWeightedGraphBuilder(Graph)
      */
     public DirectedWeightedGraphBuilderBase(G baseGraph)
     {
         super(baseGraph);
     }
 
+    
 
     /**
-     * Adds an weighted edge to the graph being built.
-     * The source and target vertices are added to the graph,
-     * if not already included.
-     * 
+     * Adds an weighted edge to the graph being built. The source and target
+     * vertices are added to the graph, if not already included.
+     *
      * @param source source vertex of the edge.
      * @param target target vertex of the edge.
-     * @param weight weight of the edge. 
+     * @param weight weight of the edge.
+     *
      * @return this builder object
+     *
      * @see Graphs#addEdgeWithVertices(Graph, Object, Object, double)
      */
     public B addEdge(V source, V target, double weight)

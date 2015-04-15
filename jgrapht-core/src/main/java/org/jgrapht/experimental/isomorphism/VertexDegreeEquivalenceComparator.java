@@ -74,8 +74,7 @@ public class VertexDegreeEquivalenceComparator<V, E>
      * @see EquivalenceComparator#equivalenceCompare(Object, Object, Object,
      * Object)
      */
-    @Override
-    public boolean equivalenceCompare(
+    @Override public boolean equivalenceCompare(
         V vertex1,
         V vertex2,
         Graph<V, E> context1,
@@ -90,12 +89,11 @@ public class VertexDegreeEquivalenceComparator<V, E>
     }
 
     /**
-     * Hashes using the in & out degree of a vertex
+     * Hashes using the in and out degree of a vertex
      *
      * @see EquivalenceComparator#equivalenceHashcode(Object, Object)
      */
-    @Override
-    public int equivalenceHashcode(V vertex, Graph<V, E> context)
+    @Override public int equivalenceHashcode(V vertex, Graph<V, E> context)
     {
         InOutDegrees inOut = getInOutDegrees(context, vertex);
 
@@ -165,8 +163,7 @@ public class VertexDegreeEquivalenceComparator<V, E>
          *
          * @see java.lang.Object#equals(java.lang.Object)
          */
-        @Override
-        public boolean equals(Object obj)
+        @Override public boolean equals(Object obj)
         {
             InOutDegrees other = (InOutDegrees) obj;
             return ((this.inDegree == other.inDegree)
